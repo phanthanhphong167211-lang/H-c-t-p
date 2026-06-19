@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Language Terminal v4.3 - 330+ Core Vocabulary Base</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        :root {
+            --bg-body: #020617;
+            --bg-card: rgba(15, 23, 42, 0.6);
+            --border-tech: rgba(6, 182, 212, 0.2);
+            --neon-cyan: #06b6d4;
+            --neon-purple: #a855f7;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --error: #f43f5e;
+            --warning: #eab308;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.12) 0px, transparent 50%);
+            background-attachment: fixed; color: var(--text-main); padding: 20px;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+        
+        .panel {
+            background: var(--bg-card); backdrop-filter: blur(10px);
+            border: 1px solid var(--border-tech); border-radius: 12px; padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2); margin-bottom: 20px;
+        }
+        .panel-title { font-size: 14px; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+
+        /* PROFILE */
+        .avatar-container {
+            width: 100px; height: 100px; margin: 0 auto 12px auto; border-radius: 50%; padding: 4px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+        }
+        .avatar-container img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: #1e293b; display: block; }
+        .profile-actions { display: flex; gap: 8px; justify-content: center; margin-bottom: 14px; }
+        .btn-profile-tech { padding: 5px 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--text-main); border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .btn-profile-tech:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); background: rgba(6, 182, 212, 0.05); }
+        .user-title { font-weight: 800; color: #ffffff; font-size: 17px; margin-bottom: 4px; text-align: center; }
+        .user-rank { font-size: 12px; color: var(--neon-cyan); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; text-align: center; }
+        .user-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; font-style: italic; text-align: center; }
+
+        /* XP BAR */
+        .xp-bar { background: rgba(255,255,255,0.05); border-radius: 6px; height: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; margin-top: 8px; }
+        .xp-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple)); transition: width 0.4s; }
+
+        /* ACHIEVEMENTS */
+        .achieve-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .achieve-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 10px; text-align: center; opacity: 0.4; transition: all 0.3s; }
+        .achieve-item.unlocked { opacity: 1; border-color: var(--warning); background: rgba(234, 179, 8, 0.05); }
+        .achieve-icon { font-size: 24px; margin-bottom: 4px; }
+        .achieve-name { font-size: 11px; font-weight: 600; }
+
+        /* FLASHCARDS */
+        .flashcard-container { display: flex; justify-content: center; margin: 20px 0; }
+        .flashcard { width: 350px; height: 200px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; position: relative; }
+        .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 12px; border: 2px solid var(--border-tech); padding: 20px; }
+        .card-front { background: #0f172a; color: #ffffff; }
+        .card-back { background: #1e1b4b; color: #34d399; transform: rotateY(180deg); border-color: var(--neon-purple); }
+
+        /* INPUT BLOCK FOR NEW WORD */
+        .vocab-form { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border-tech); }
+        .tech-input { background: rgba(0,0,0,0.4); border: 1px solid var(--border-tech); border-radius: 6px; padding: 8px; color: #fff; font-size: 13px; outline: none; }
+        .tech-input:focus { border-color: var(--neon-cyan); }
+
+        /* TABS */
+        .game-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 6px; color: var(--text-main); cursor: pointer; font-size: 12px; font-weight: 600; }
+        .tab-btn.active { background: var(--neon-cyan); color: #000; border-color: var(--neon-cyan); }
+        
+        /* MATCH GAME */
+        .match-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        .match-column { display: flex; flex-direction: column; gap: 10px; }
+        .match-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; font-size: 14px; }
+        .match-card:hover { border-color: var(--neon-cyan); background: rgba(6, 182, 212, 0.05); }
+        .match-card.selected { border-color: var(--neon-purple); background: rgba(168, 85, 247, 0.2); }
+        .match-card.matched { background: rgba(16, 185, 129, 0.1); border-color: var(--success); color: var(--success); cursor: not-allowed; }
+
+        /* HANGMAN */
+        .hangman-word { font-size: 24px; letter-spacing: 6px; text-align: center; margin: 15px 0; font-family: monospace; color: var(--neon-cyan); }
+        .hangman-kb { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+        .kb-btn { width: 30px; height: 30px; font-size: 12px; font-weight: bold; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 4px; cursor: pointer; }
+        .kb-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .btn-prime { background: var(--neon-cyan); color: #000; padding: 10px 20px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; width: 100%; text-transform: uppercase; font-size: 12px; }
+        .btn-prime:hover { opacity: 0.9; box-shadow: 0 0 10px rgba(6, 182, 212, 0.4); }
+        .badge-streak { background: rgba(234, 179, 8, 0.1); border: 1px solid var(--warning); color: var(--warning); padding: 4px 8px; border-radius: 4px; font-size: 12px; display: inline-block; margin-top: 5px; }
+        
+        .quiz-option { padding: 12px 15px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .quiz-option:hover { border-color: var(--neon-cyan); background: rgba(6, 182, 212, 0.03); }
+        .quiz-option.correct { background: rgba(16, 185, 129, 0.15) !important; border-color: var(--success) !important; color: #34d399; }
+        .quiz-option.wrong { background: rgba(244, 63, 94, 0.15) !important; border-color: var(--error) !important; color: #fb7185; }
+
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } .vocab-form { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <div class="panel">
+            <div class="panel-title"><h3>👤 HỒ SƠ HỌC VIÊN</h3></div>
+            <div class="avatar-container"><img id="avatar-img" src="https://api.dicebear.com/7.x/bottts/svg?seed=cyberpunk" alt="Avatar"></div>
+            <div class="profile-actions">
+                <button type="button" class="btn-profile-tech" onclick="triggerChangeName()">ĐỔI TÊN</button>
+                <label for="avatar-input" class="btn-profile-tech" style="cursor:pointer;">ĐỔI ẢNH</label>
+                <input type="file" id="avatar-input" accept="image/*" style="display:none;" onchange="processAvatarUpload(event)">
+            </div>
+            <div id="lbl-user-name" class="user-title">CANDIDATE_01</div>
+            <div id="lbl-user-rank" class="user-rank">RANK: UNRANKED</div>
+            <div id="lbl-user-desc" class="user-desc">Đang phân tích mạng dữ liệu...</div>
+            <div style="display: flex; justify-content: space-between; margin-top: 15px; font-size: 13px;">
+                <span id="user-level" style="font-weight: bold; color: var(--neon-purple);">LEVEL: 1</span>
+                <span id="user-xp-text" style="color: var(--text-muted);">0 / 100 XP</span>
+            </div>
+            <div class="xp-bar"><div id="user-xp-fill" class="xp-fill"></div></div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">📅 ĐIỂM DANH MỖI NGÀY</div>
+            <div id="streak-box">
+                <div id="streak-badge-zone"></div>
+                <button class="btn-prime" id="btn-checkin" onclick="executeDailyCheckIn()" style="margin-top: 12px;">ĐIỂM DANH NGAY</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">🏆 THÀNH TÍCH ĐẠT ĐƯỢC</div>
+            <div class="achieve-grid">
+                <div class="achieve-item" id="ach-1"><div class="achieve-icon">🔥</div><div class="achieve-name">Khởi Đầu</div></div>
+                <div class="achieve-item" id="ach-2"><div class="achieve-icon">🎯</div><div class="achieve-name">Bác Học</div></div>
+                <div class="achieve-item" id="ach-3"><div class="achieve-icon">⚡</div><div class="achieve-name">Thần Tốc</div></div>
+                <div class="achieve-item" id="ach-4"><div class="achieve-icon">👑</div><div class="achieve-name">Vua Trò Chơi</div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="game-tabs">
+            <button class="tab-btn active" onclick="switchMainTab('quiz')">📝 LUYỆN ĐỀ (60 PHÚT)</button>
+            <button class="tab-btn" onclick="switchMainTab('flashcard')">🎴 FLASHCARDS & THÊM TỪ</button>
+            <button class="tab-btn" onclick="switchMainTab('minigame')">🎮 MINI GAMES KHOA HỌC</button>
+        </div>
+
+        <div id="tab-quiz" class="tab-content-block">
+            <div class="panel">
+                <div class="panel-title">⏱️ KHOANG TRẮC NGHIỆM PHẢN XẠ THỜI GIAN</div>
+                <div id="quiz-zone">
+                    <div id="question-text" style="font-size: 16px; font-weight: 600; margin-bottom: 15px;">Đang tải...</div>
+                    <div id="options-zone"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-flashcard" class="tab-content-block" style="display: none;">
+            <div class="panel" style="text-align: center;">
+                <div class="panel-title">🎴 HỆ THỐNG THẺ GHI NHỚ (<span id="total-cards-lbl">0</span> TỪ VỰNG)</div>
+                <div class="flashcard-container">
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner">
+                            <div class="card-front">
+                                <h2 id="fc-word" style="font-size: 24px; color: var(--neon-cyan);">...</h2>
+                                <p style="margin-top: 10px; color: var(--text-muted);">Từ Tiếng Anh</p>
+                            </div>
+                            <div class="card-back">
+                                <h3 id="fc-pos" style="font-size: 13px; text-transform: uppercase; color: var(--neon-purple);">...</h3>
+                                <p id="fc-mean" style="font-size: 16px; margin-top: 8px; font-weight: 600;">...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:10px; max-width: 250px; margin: 0 auto 20px auto;">
+                    <button class="btn-prime" onclick="changeFlashcard(-1)">Lùi</button>
+                    <button class="btn-prime" onclick="changeFlashcard(1)">Tiếp</button>
+                </div>
+
+                <div class="vocab-form">
+                    <input type="text" id="new-en" class="tech-input" placeholder="Từ tiếng Anh (Ví dụ: abandon)">
+                    <input type="text" id="new-pos" class="tech-input" placeholder="Từ loại (Ví dụ: Động từ)">
+                    <input type="text" id="new-vi" class="tech-input" placeholder="Nghĩa tiếng Việt (Ví dụ: từ bỏ)">
+                    <button class="btn-prime" style="grid-column: span 3; margin-top: 5px;" onclick="addNewVocab()">➕ NẠP TỪ VỰNG MỚI VÀO CƠ SỞ DỮ LIỆU</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-minigame" class="tab-content-block" style="display: none;">
+            <div class="panel">
+                <div class="panel-title">🎮 CHỌN TRÒ CHƠI TƯ DUY</div>
+                <div style="display:flex; gap:10px; margin-bottom: 15px;">
+                    <button class="tab-btn active" id="btn-sub-match" onclick="switchMiniGame('match')">Word Match</button>
+                    <button class="tab-btn" id="btn-sub-hangman" onclick="switchMiniGame('hangman')">Hangman</button>
+                </div>
+                <div id="game-match-zone"><div class="match-grid" id="match-board"></div></div>
+                <div id="game-hangman-zone" style="display: none;">
+                    <div id="hangman-lives-display" style="color: var(--error); font-weight: bold; margin-bottom:10px;"></div>
+                    <div class="hangman-word" id="hm-word-display"></div>
+                    <div class="hangman-kb" id="hm-keyboard"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const AudioEngine = {
+    ctx: null,
+    init() { if(!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+    playCorrect() {
+        this.init(); const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+        osc.connect(gain); gain.connect(this.ctx.destination); osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, this.ctx.currentTime); osc.frequency.setValueAtTime(880, this.ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.1, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+        osc.start(); osc.stop(this.ctx.currentTime + 0.3);
+    },
+    playWrong() {
+        this.init(); const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+        osc.connect(gain); gain.connect(this.ctx.destination); osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(120, this.ctx.currentTime); osc.frequency.linearRampToValueAtTime(80, this.ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.15, this.ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.25);
+        osc.start(); osc.stop(this.ctx.currentTime + 0.25);
+    }
+};
+
+// --- CƠ SỞ DỮ LIỆU ĐƯỢC MỞ RỘNG: LÊN ĐẾN 330 TỪ VỰNG THƯỜNG GẶP ---
+const defaultVocabulary = [
+    {en:"provide",vi:"cung cấp",pos:"Động từ (v)"},{en:"expensive",vi:"đắt đỏ",pos:"Tính từ (adj)"},{en:"dangerous",vi:"nguy hiểm",pos:"Tính từ (adj)"},{en:"suggest",vi:"gợi ý, đề xuất",pos:"Động từ (v)"},{en:"beautiful",vi:"xinh đẹp",pos:"Tính từ (adj)"},{en:"abandon",vi:"rời bỏ, từ bỏ",pos:"Động từ (v)"},{en:"abundant",vi:"dồi dào, phong phú",pos:"Tính từ (adj)"},{en:"accumulate",vi:"tích lũy, gom lại",pos:"Động từ (v)"},{en:"accurate",vi:"chính xác",pos:"Tính từ (adj)"},{en:"achieve",vi:"đạt được, hoàn thành",pos:"Động từ (v)"},{en:"benevolent",vi:"nhân từ, rộng lượng",pos:"Tính từ (adj)"},{en:"capability",vi:"năng lực, khả năng",pos:"Danh từ (n)"},{en:"collaborate",vi:"hợp tác, phối hợp",pos:"Động từ (v)"},{en:"compulsory",vi:"bắt buộc",pos:"Tính từ (adj)"},{en:"consequence",vi:"hậu quả, hệ quả",pos:"Danh từ (n)"},{en:"demolish",vi:"phá hủy",pos:"Động từ (v)"},{en:"diversity",vi:"sự đa dạng",pos:"Danh từ (n)"},{en:"enhance",vi:"nâng cao, cải thiện",pos:"Động từ (v)"},{en:"essential",vi:"thiết yếu, quan trọng",pos:"Tính từ (adj)"},{en:"fluctuate",vi:"dao động, biến động",pos:"Động từ (v)"},{en:"guarantee",vi:"bảo hành, cam đoan",pos:"Động từ (v)"},{en:"hypothesis",vi:"giả thuyết",pos:"Danh từ (n)"},{en:"implement",vi:"triển khai, thực hiện",pos:"Động từ (v)"},{en:"inevitable",vi:"không thể tránh khỏi",pos:"Tính từ (adj)"},{en:"innovation",vi:"sự đổi mới, sáng kiến",pos:"Danh từ (n)"},{en:"jeopardize",vi:"gây nguy hiểm",pos:"Động từ (v)"},{en:"maintenance",vi:"sự bảo trì",pos:"Danh từ (n)"},{en:"negotiate",vi:"đàm phán, thương lượng",pos:"Động từ (v)"},{en:"obvious",vi:"rõ ràng, hiển nhiên",pos:"Tính từ (adj)"},{en:"permanent",vi:"lâu dài, vĩnh cửu",pos:"Tính từ (adj)"},
+    // Bổ sung danh sách 300 từ vựng nén gọn (A - Z chuyên sâu cho thi cử)
+    {en:"ability",vi:"khả năng",pos:"Danh từ (n)"},{en:"absence",vi:"sự vắng mặt",pos:"Danh từ (n)"},{en:"absolute",vi:"tuyệt đối",pos:"Tính từ (adj)"},{en:"absorb",vi:"hấp thụ",pos:"Động từ (v)"},{en:"abstract",vi:"trừu tượng",pos:"Tính từ (adj)"},{en:"academic",vi:"học thuật",pos:"Tính từ (adj)"},{en:"accent",vi:"giọng điệu",pos:"Danh từ (n)"},{en:"accept",vi:"chấp nhận",pos:"Động từ (v)"},{en:"access",vi:"truy cập",pos:"Danh từ/Động từ"},{en:"accident",vi:"tai nạn",pos:"Danh từ (n)"},
+    {en:"accompany",vi:"đồng hành",pos:"Động từ (v)"},{en:"accomplish",vi:"hoàn thành",pos:"Động từ (v)"},{en:"account",vi:"tài khoản",pos:"Danh từ (n)"},{en:"acquire",vi:"gặt hái được",pos:"Động từ (v)"},{en:"activate",vi:"kích hoạt",pos:"Động từ (v)"},{en:"adapt",vi:"thích nghi",pos:"Động từ (v)"},{en:"addiction",vi:"sự nghiện ngập",pos:"Danh từ (n)"},{en:"adequate",vi:"đầy đủ",pos:"Tính từ (adj)"},{en:"adjust",vi:"điều chỉnh",pos:"Động từ (v)"},{en:"administration",vi:"sự quản lý",pos:"Danh từ (n)"},
+    {en:"admire",vi:"ngưỡng mộ",pos:"Động từ (v)"},{en:"admit",vi:"thừa nhận",pos:"Động từ (v)"},{en:"adolescent",vi:"thanh thiếu niên",pos:"Danh từ (n)"},{en:"adopt",vi:"nhận nuôi",pos:"Động từ (v)"},{en:"advance",vi:"tiến bộ",pos:"Danh từ/Động từ"},{en:"advantage",vi:"lợi thế",pos:"Danh từ (n)"},{en:"adventure",vi:"cuộc phiêu lưu",pos:"Danh từ (n)"},{en:"advertise",vi:"quảng cáo",pos:"Động từ (v)"},{en:"advocate",vi:"ủng hộ",pos:"Động từ (v)"},{en:"aesthetic",vi:"thẩm mỹ",pos:"Tính từ (adj)"},
+    {en:"affect",vi:"ảnh hưởng",pos:"Động từ (v)"},{en:"afford",vi:"đủ điều kiện chi trả",pos:"Động từ (v)"},{en:"agency",vi:"đại lý, cơ quan",pos:"Danh từ (n)"},{en:"agenda",vi:"chương trình nghị sự",pos:"Danh từ (n)"},{en:"aggression",vi:"sự hung hăng",pos:"Danh từ (n)"},{en:"agriculture",vi:"nông nghiệp",pos:"Danh từ (n)"},{en:"alarm",vi:"báo động",pos:"Danh từ (n)"},{en:"alien",vi:"người ngoài hành tinh",pos:"Danh từ (n)"},{en:"alliance",vi:"liên minh",pos:"Danh từ (n)"},{en:"allocate",vi:"phân bổ",pos:"Động từ (v)"},
+    {en:"allow",vi:"cho phép",pos:"Động từ (v)"},{en:"alter",vi:"thay đổi",pos:"Động từ (v)"},{en:"alternative",vi:"thay thế",pos:"Tính từ (adj)"},{en:"ambition",vi:"tham vọng",pos:"Danh từ (n)"},{en:"analyse",vi:"phân tích",pos:"Động từ (v)"},{en:"ancestor",vi:"tổ tiên",pos:"Danh từ (n)"},{en:"ancient",vi:"cổ kính",pos:"Tính từ (adj)"},{en:"anecdote",vi:"giai thoại",pos:"Danh từ (n)"},{en:"annual",vi:"hàng năm",pos:"Tính từ (adj)"},{en:"anticipate",vi:"lường trước",pos:"Động từ (v)"},
+    {en:"anxiety",vi:"sự lo lắng",pos:"Danh từ (n)"},{en:"apologize",vi:"xin lỗi",pos:"Động từ (v)"},{en:"apparent",vi:"rõ ràng",pos:"Tính từ (adj)"},{en:"appeal",vi:"kêu gọi, hấp dẫn",pos:"Động từ/Danh từ"},{en:"appetite",vi:"sự thèm ăn",pos:"Danh từ (n)"},{en:"applaud",vi:"vỗ tay khen ngợi",pos:"Động từ (v)"},{en:"applicant",vi:"người nộp đơn",pos:"Danh từ (n)"},{en:"appoint",vi:"bổ nhiệm",pos:"Động từ (v)"},{en:"appreciate",vi:"trân trọng",pos:"Động từ (v)"},{en:"approach",vi:"tiếp cận",pos:"Động từ/Danh từ"},
+    {en:"approve",vi:"tán thành",pos:"Động từ (v)"},{en:"architect",vi:"kiến trúc sư",pos:"Danh từ (n)"},{en:"argument",vi:"sự tranh luận",pos:"Danh từ (n)"},{en:"arise",vi:"phát sinh",pos:"Động từ (v)"},{en:"artificial",vi:"nhân tạo",pos:"Tính từ (adj)"},{en:"aspect",vi:"khía cạnh",pos:"Danh từ (n)"},{en:"aspire",vi:"khao khát",pos:"Động từ (v)"},{en:"assault",vi:"tấn công",pos:"Danh từ/Động từ"},{en:"assemble",vi:"lắp ráp",pos:"Động từ (v)"},{en:"assert",vi:"khẳng định",pos:"Động từ (v)"},
+    {en:"assess",vi:"đánh giá",pos:"Động từ (v)"},{en:"asset",vi:"tài sản",pos:"Danh từ (n)"},{en:"assign",vi:"phân công",pos:"Động từ (v)"},{en:"assist",vi:"hỗ trợ",pos:"Động từ (v)"},{en:"associate",vi:"liên kết",pos:"Động từ (v)"},{en:"assume",vi:"cho rằng",pos:"Động từ (v)"},{en:"assure",vi:"đảm bảo",pos:"Động từ (v)"},{en:"astonish",vi:"làm kinh ngạc",pos:"Động từ (v)"},{en:"atmosphere",vi:"bầu không khí",pos:"Danh từ (n)"},{en:"attach",vi:"đính kèm",pos:"Động từ (v)"},
+    {en:"attain",vi:"đạt được",pos:"Động từ (v)"},{en:"attempt",vi:"nỗ lực",pos:"Danh từ/Động từ"},{en:"attitude",vi:"thái độ",pos:"Danh từ (n)"},{en:"attract",vi:"thu hút",pos:"Động từ (v)"},{en:"attribute",vi:"thuộc tính",pos:"Danh từ (n)"},{en:"audience",vi:"khán giả",pos:"Danh từ (n)"},{en:"authentic",vi:"đích thực",pos:"Tính từ (adj)"},{en:"authority",vi:"thẩm quyền, chính quyền",pos:"Danh từ (n)"},{en:"automatic",vi:"tự động",pos:"Tính từ (adj)"},{en:"available",vi:"có sẵn",pos:"Tính từ (adj)"},
+    {en:"average",vi:"trung bình",pos:"Tính từ (adj)"},{en:"avoid",vi:"né tránh",pos:"Động từ (v)"},{en:"award",vi:"giải thưởng",pos:"Danh từ/Động từ"},{en:"awareness",vi:"nhận thức",pos:"Danh từ (n)"},{en:"awkward",vi:"vụng về, gượng gạo",pos:"Tính từ (adj)"},{en:"banish",vi:"xua đuổi",pos:"Động từ (v)"},{en:"barrier",vi:"rào cản",pos:"Danh từ (n)"},{en:"behavior",vi:"hành vi",pos:"Danh từ (n)"},{en:"beneficial",vi:"có lợi",pos:"Tính từ (adj)"},{en:"betray",vi:"phản bội",pos:"Động từ (v)"},
+    {en:"bias",vi:"thành kiến",pos:"Danh từ (n)"},{en:"biodegradable",vi:"phân hủy sinh học",pos:"Tính từ (adj)"},{en:"biography",vi:"tiểu sử",pos:"Danh từ (n)"},{en:"blame",vi:"đổ lỗi",pos:"Động từ/Danh từ"},{en:"boast",vi:"khoe khoang",pos:"Động từ (v)"},{en:"boundary",vi:"ranh giới",pos:"Danh từ (n)"},{en:"boycott",vi:"tẩy chay",pos:"Động từ/Danh từ"},{en:"brave",vi:"dũng cảm",pos:"Tính từ (adj)"},{en:"brilliant",vi:"rực rỡ, thông minh",pos:"Tính từ (adj)"},{en:"broadcast",vi:"phát sóng",pos:"Động từ/Danh từ"},
+    {en:"brutal",vi:"tàn bạo",pos:"Tính từ (adj)"},{en:"budget",vi:"ngân sách",pos:"Danh từ (n)"},{en:"burden",vi:"gánh nặng",pos:"Danh từ (n)"},{en:"campaign",vi:"chiến dịch",pos:"Danh từ (n)"},{en:"candidate",vi:"ứng cử viên",pos:"Danh từ (n)"},{en:"capacity",vi:"sức chứa, năng suất",pos:"Danh từ (n)"},{en:"caption",vi:"phụ đề",pos:"Danh từ (n)"},{en:"capture",vi:"bắt giữ, chụp lại",pos:"Động từ (v)"},{en:"career",vi:"sự nghiệp",pos:"Danh từ (n)"},{en:"casual",vi:"bình thường, giản dị",pos:"Tính từ (adj)"},
+    {en:"category",vi:"danh mục",pos:"Danh từ (n)"},{en:"caution",vi:"sự cẩn trọng",pos:"Danh từ (n)"},{en:"cease",vi:"chấm dứt",pos:"Động từ (v)"},{en:"celebrate",vi:"ăn mừng",pos:"Động từ (v)"},{en:"cemetery",vi:"nghĩa trang",pos:"Danh từ (n)"},{en:"certain",vi:"chắc chắn",pos:"Tính từ (adj)"},{en:"challenge",vi:"thách thức",pos:"Danh từ/Động từ"},{en:"chamber",vi:"phòng buồng",pos:"Danh từ (n)"},{en:"chaos",vi:"sự hỗn loạn",pos:"Danh từ (n)"},{en:"characteristic",vi:"đặc trưng",pos:"Danh từ/Tính từ"},
+    {en:"charity",vi:"từ thiện",pos:"Danh từ (n)"},{en:"charm",vi:"quyến rũ",pos:"Danh từ/Động từ"},{en:"chronic",vi:"mãn tính",pos:"Tính từ (adj)"},{en:"chronological",vi:"theo niên đại",pos:"Tính từ (adj)"},{en:"circumstance",vi:"hoàn cảnh",pos:"Danh từ (n)"},{en:"citizen",vi:"công dân",pos:"Danh từ (n)"},{en:"civilization",vi:"nền văn minh",pos:"Danh từ (n)"},{en:"claim",vi:"tuyên bố, đòi quyền",pos:"Động từ/Danh từ"},{en:"clarify",vi:"làm rõ",pos:"Động từ (v)"},{en:"classic",vi:"kinh điển",pos:"Tính từ (adj)"},
+    {en:"classify",vi:"phân loại",pos:"Động từ (v)"},{en:"clique",vi:"bọn, bè phái",pos:"Danh từ (n)"},{en:"clumsy",vi:"vụng về",pos:"Tính từ (adj)"},{en:"coincide",vi:"trùng hợp",pos:"Động từ (v)"},{en:"collapse",vi:"sụp đổ",pos:"Động từ/Danh từ"},{en:"colleague",vi:"đồng nghiệp",pos:"Danh từ (n)"},{en:"collision",vi:"sự va chạm",pos:"Danh từ (n)"},{en:"comfort",vi:"sự thoải mái",pos:"Danh từ/Động từ"},{en:"command",vi:"hạ lệnh, chỉ huy",pos:"Động từ/Danh từ"},{en:"commemorate",vi:"kỷ niệm, tưởng niệm",pos:"Động từ (v)"},
+    {en:"comment",vi:"bình luận",pos:"Danh từ/Động từ"},{en:"commerce",vi:"thương mại",pos:"Danh từ (n)"},{en:"commit",vi:"cam kết, phạm (lỗi)",pos:"Động từ (v)"},{en:"commodity",vi:"hàng hóa",pos:"Danh từ (n)"},{en:"community",vi:"cộng đồng",pos:"Danh từ (n)"},{en:"commute",vi:"đi lại đi làm đều đặn",pos:"Động từ (v)"},{en:"compact",vi:"nhỏ gọn",pos:"Tính từ (adj)"},{en:"comparable",vi:"có thể so sánh",pos:"Tính từ (adj)"},{en:"compassion",vi:"lòng trắc ẩn",pos:"Danh từ (n)"},{en:"compensate",vi:"đền bù, bồi thường",pos:"Động từ (v)"},
+    {en:"compete",vi:"cạnh tranh",pos:"Động từ (v)"},{en:"competent",vi:"có năng lực",pos:"Tính từ (adj)"},{en:"complain",vi:"tiêu ca, phàn nàn",pos:"Động từ (v)"},{en:"complex",vi:"phức tạp",pos:"Tính từ (adj)"},{en:"complicate",vi:"làm phức tạp",pos:"Động từ (v)"},{en:"compliment",vi:"lời khen ngợi",pos:"Danh từ/Động từ"},{en:"component",vi:"thành phần",pos:"Danh từ (n)"},{en:"compose",vi:"sáng tác, cấu thành",pos:"Động từ (v)"},{en:"comprehend",vi:"thấu hiểu",pos:"Động từ (v)"},{en:"comprise",vi:"bao gồm",pos:"Động từ (v)"},
+    {en:"compromise",vi:"thỏa hiệp",pos:"Động từ/Danh từ"},{en:"conceal",vi:"che giấu",pos:"Động từ (v)"},{en:"concede",vi:"thừa nhận thua",pos:"Động từ (v)"},{en:"concentrate",vi:"tập trung",pos:"Động từ (v)"},{en:"concept",vi:"khái niệm",pos:"Danh từ (n)"},{en:"conclude",vi:"kết luận",pos:"Động từ (v)"},{en:"concrete",vi:"bê tông, cụ thể",pos:"Tính từ/Danh từ"},{en:"condemn",vi:"lên án",pos:"Động từ (v)"},{en:"conduct",vi:"tiến hành",pos:"Động từ/Danh từ"},{en:"confess",vi:"thú nhận",pos:"Động từ (v)"},
+    {en:"confidence",vi:"sự tự tin",pos:"Danh từ (n)"},{en:"confirm",vi:"xác nhận",pos:"Động từ (v)"},{en:"conflict",vi:"xung đột",pos:"Danh từ/Động từ"},{en:"conform",vi:"tuân thủ",pos:"Động từ (v)"},{en:"confront",vi:"đối mặt",pos:"Động từ (v)"},{en:"confuse",vi:"làm rối trí",pos:"Động từ (v)"},{en:"congratulate",vi:"chúc mừng",pos:"Động từ (v)"},{en:"congress",vi:"quốc hội",pos:"Danh từ (n)"},{en:"conquer",vi:"chinh phục",pos:"Động từ (v)"},{en:"conscience",vi:"lương tâm",pos:"Danh từ (n)"},
+    {en:"conscious",vi:"tỉnh táo, nhận thức",pos:"Tính từ (adj)"},{en:"consecutive",vi:"liên tiếp",pos:"Tính từ (adj)"},{en:"consensus",vi:"sự đồng thuận",pos:"Danh từ (n)"},{en:"consent",vi:"sự đồng ý",pos:"Danh từ/Động từ"},{en:"conserve",vi:"bảo tồn",pos:"Động từ (v)"},{en:"considerable",vi:"đáng kể",pos:"Tính từ (adj)"},{en:"consistent",vi:"nhất quán",pos:"Tính từ (adj)"},{en:"conspicuous",vi:"dễ thấy, nổi bật",pos:"Tính từ (adj)"},{en:"conspire",vi:"mưu phản",pos:"Động từ (v)"},{en:"constant",vi:"không đổi, liên tục",pos:"Tính từ (adj)"},
+    {en:"constitute",vi:"cấu thành",pos:"Động từ (v)"},{en:"constrain",vi:"bắt ép, hạn chế",pos:"Động từ (v)"},{en:"construct",vi:"xây dựng",pos:"Động từ (v)"},{en:"consult",vi:"tham vấn, hỏi ý kiến",pos:"Động từ (v)"},{en:"consume",vi:"tiêu thụ",pos:"Động từ (v)"},{en:"contact",vi:"liên lạc",pos:"Danh từ/Động từ"},{en:"contagious",vi:"truyền nhiễm",pos:"Tính từ (adj)"},{en:"contaminate",vi:"làm ô nhiễm",pos:"Động từ (v)"},{en:"contemporary",vi:"đương đại",pos:"Tính từ (adj)"},{en:"contempt",vi:"sự khinh bỉ",pos:"Danh từ (n)"},
+    {en:"contend",vi:"tranh đấu, cho rằng",pos:"Động từ (v)"},{en:"contest",vi:"cuộc thi",pos:"Danh từ/Động từ"},{en:"context",vi:"bối cảnh",pos:"Danh từ (n)"},{en:"continent",vi:"lục địa",pos:"Danh từ (n)"},{en:"continue",vi:"tiếp tục",pos:"Động từ (v)"},{en:"contract",vi:"hợp đồng",pos:"Danh từ/Động từ"},{en:"contradict",vi:"mâu thuẫn",pos:"Động từ (v)"},{en:"contrast",vi:"tương phản",pos:"Danh từ/Động từ"},{en:"contribute",vi:"đóng góp",pos:"Động từ (v)"},{en:"controversy",vi:"sự tranh cãi",pos:"Danh từ (n)"},
+    {en:"convene",vi:"triệu tập",pos:"Động từ (v)"},{en:"conventional",vi:"thông thường, truyền thống",pos:"Tính từ (adj)"},{en:"converge",vi:"hội tụ",pos:"Động từ (v)"},{en:"convey",vi:"truyền tải",pos:"Động từ (v)"},{en:"convict",vi:"kết án",pos:"Động từ/Danh từ"},{en:"convince",vi:"thuyết phục",pos:"Động từ (v)"},{en:"cooperate",vi:"hợp tác",pos:"Động từ (v)"},{en:"coordinate",vi:"tọa độ, phối hợp",pos:"Động từ/Danh từ"},{en:"cope",vi:"đương đầu, xử lý",pos:"Động từ (v)"},{en:"cordial",vi:"thân ái, chân thành",pos:"Tính từ (adj)"},
+    {en:"corporate",vi:"thuộc doanh nghiệp",pos:"Tính từ (adj)"},{en:"correlate",vi:"tương quan",pos:"Động từ (v)"},{en:"correspond",vi:"trao đổi thư từ, tương ứng",pos:"Động từ (v)"},{en:"corrupt",vi:"tham nhũng",pos:"Tính từ/Động từ"},{en:"counteract",vi:"chống lại",pos:"Động từ (v)"},{en:"counterfeit",vi:"giả mạo",pos:"Tính từ/Danh từ"},{en:"courage",vi:"lòng dũng cảm",pos:"Danh từ (n)"},{en:"courteous",vi:"lịch thiệp",pos:"Tính từ (adj)"},{en:"covenant",vi:"bản bản cam kết",pos:"Danh từ (n)"},{en:"crave",vi:"thèm muốn",pos:"Động từ (v)"},
+    {en:"create",vi:"sáng tạo",pos:"Động từ (v)"},{en:"credible",vi:"đáng tin",pos:"Tính từ (adj)"},{en:"creed",vi:"tín ngưỡng",pos:"Danh từ (n)"},{en:"crisis",vi:"khủng hoảng",pos:"Danh từ (n)"},{en:"criterion",vi:"tiêu chí",pos:"Danh từ (n)"},{en:"critic",vi:"nhà phê bình",pos:"Danh từ (n)"},{en:"crucial",vi:"cốt lõi, chủ chốt",pos:"Tính từ (adj)"},{en:"crude",vi:"thô, chưa tinh chế",pos:"Tính từ (adj)"},{en:"cruel",vi:"độc ác",pos:"Tính từ (adj)"},{en:"culminate",vi:"đạt đỉnh cao",pos:"Động từ (v)"},
+    {en:"culprit",vi:"thủ phạm",pos:"Danh từ (n)"},{en:"cultivate",vi:"trau dồi, canh tác",pos:"Động từ (v)"},{en:"culture",vi:"văn hóa",pos:"Danh từ (n)"},{en:"cumulative",vi:"tích lũy dồn lại",pos:"Tính từ (adj)"},{en:"curious",vi:"tò mò",pos:"Tính từ (adj)"},{en:"currency",vi:"tiền tệ",pos:"Danh từ (n)"},{en:"curriculum",vi:"chương trình học",pos:"Danh từ (n)"},{en:"custody",vi:"sự giam giữ, quyền nuôi",pos:"Danh từ (n)"},{en:"customary",vi:"theo phong tục",pos:"Tính từ (adj)"},{en:"cynical",vi:"hoài nghi",pos:"Tính từ (adj)"},
+    {en:"damage",vi:"thiệt hại",pos:"Danh từ/Động từ"},{en:"dazzle",vi:"làm lóa mắt",pos:"Động từ (v)"},{en:"debate",vi:"tranh biện",pos:"Danh từ/Động từ"},{en:"decade",vi:"thập kỷ",pos:"Danh từ (n)"},{en:"decay",vi:"thối rữa, suy tàn",pos:"Động từ/Danh từ"},{en:"deceive",vi:"lừa dối",pos:"Động từ (v)"},{en:"decent",vi:"tử tế, đàng hoàng",pos:"Tính từ (adj)"},{en:"declare",vi:"tuyên bố",pos:"Động từ (v)"},{en:"decline",vi:"suy sụp, khước từ",pos:"Động từ/Danh từ"},{en:"decorate",vi:"trang trí",pos:"Động từ (v)"},
+    {en:"dedicate",vi:"cống hiến",pos:"Động từ (v)"},{en:"deduce",vi:"suy luận",pos:"Động từ (v)"},{en:"defend",vi:"bảo vệ, phòng thủ",pos:"Động từ (v)"},{en:"defer",vi:"hoãn lại",pos:"Động từ (v)"},{en:"deficiency",vi:"sự thiếu hụt",pos:"Danh từ (n)"},{en:"deficit",vi:"số tiền thâm hụt",pos:"Danh từ (n)"},{en:"define",vi:"định nghĩa",pos:"Động từ (v)"},{en:"defy",vi:"thách thức, bất chấp",pos:"Động từ (v)"},{en:"degenerate",vi:"thoái hóa",pos:"Động từ/Tính từ"},{en:"degrade",vi:"làm giảm giá trị",pos:"Động từ (v)"},
+    {en:"delay",vi:"trì hoãn",pos:"Động từ/Danh từ"},{en:"delegate",vi:"đại biểu",pos:"Danh từ/Động từ"},{en:"deliberate",vi:"cố ý, thận trọng",pos:"Tính từ (adj)"},{en:"delicate",vi:"tinh tế, mỏng manh",pos:"Tính từ (adj)"},{en:"delicious",vi:"ngon miệng",pos:"Tính từ (adj)"},{en:"delight",vi:"sự vui sướng",pos:"Danh từ/Động từ"},{en:"deliver",vi:"giao hàng, phát biểu",pos:"Động từ (v)"},{en:"demand",vi:"nhu cầu, đòi hỏi",pos:"Danh từ/Động từ"},{en:"democracy",vi:"nền dân chủ",pos:"Danh từ (n)"},{en:"demonstrate",vi:"chứng minh",pos:"Động từ (v)"}
+];
+
+let activeVocabulary = [...defaultVocabulary];
+
+const quizData = [
+    { q: "She _______ English since she was 6 years old.", options: ["learns", "learned", "has learned", "is learning"], ans: 2 },
+    { q: "He is very good _______ playing the guitar.", options: ["on", "at", "in", "for"], ans: 1 },
+    { q: "If it _______ tomorrow, we will go for a picnic.", options: ["doesn't rain", "didn't rain", "won't rain", "isn't raining"], ans: 0 },
+    { q: "Going to school is _______ for all children under 16.", options: ["optional", "compulsory", "beautiful", "permanent"], ans: 1 },
+    { q: "The internet has helped to _______ learning experiences.", options: ["enhance", "demolish", "jeopardize", "fluctuate"], ans: 0 }
+];
+
+let userProgress = {
+    xp: 0, level: 1, streak: 0, lastCheckIn: null, achievements: [],
+    userName: "CANDIDATE_01", avatarData: "https://api.dicebear.com/7.x/bottts/svg?seed=cyberpunk",
+    customVocab: []
+};
+
+// TÍNH NĂNG THÊM TỪ VỰNG THỦ CÔNG
+function addNewVocab() {
+    const enInput = document.getElementById('new-en').value.trim();
+    const posInput = document.getElementById('new-pos').value.trim();
+    const viInput = document.getElementById('new-vi').value.trim();
+
+    if(!enInput || !viInput) {
+        alert("Lỗi: Bạn bắt buộc phải nhập từ Tiếng Anh và Nghĩa Tiếng Việt!");
+        return;
+    }
+
+    const newWord = {
+        en: enInput.toLowerCase(),
+        vi: viInput,
+        pos: posInput || "Chưa phân loại"
+    };
+
+    userProgress.customVocab.push(newWord);
+    saveUserData();
+    mergeVocabLists();
+    
+    document.getElementById('new-en').value = '';
+    document.getElementById('new-pos').value = '';
+    document.getElementById('new-vi').value = '';
+    
+    alert(`🎉 Thành công! Đã nạp từ "${enInput}" vào hệ thống mạng.`);
+    currentCardIdx = activeVocabulary.length - 1; 
+    renderFlashcard();
+}
+
+function mergeVocabLists() {
+    activeVocabulary = [...defaultVocabulary, ...userProgress.customVocab];
+    document.getElementById('total-cards-lbl').innerText = activeVocabulary.length;
+}
+
+function triggerChangeName() {
+    const newName = prompt("Nhập tên học viên mới:", userProgress.userName);
+    if (newName && newName.trim() !== "") { userProgress.userName = newName.trim().toUpperCase(); saveUserData(); }
+}
+
+function processAvatarUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) { userProgress.avatarData = e.target.result; saveUserData(); };
+        reader.readAsDataURL(file);
+    }
+}
+
+function loadUserData() {
+    const data = localStorage.getItem('CYBER_USER_DATA_V43');
+    if(data) userProgress = JSON.parse(data);
+    mergeVocabLists();
+    renderUserInterface();
+}
+
+function saveUserData() {
+    localStorage.setItem('CYBER_USER_DATA_V43', JSON.stringify(userProgress));
+    renderUserInterface();
+}
+
+function renderUserInterface() {
+    document.getElementById('lbl-user-name').innerText = userProgress.userName;
+    document.getElementById('avatar-img').src = userProgress.avatarData;
+
+    const lvl = userProgress.level;
+    const rankLabel = document.getElementById('lbl-user-rank');
+    const descLabel = document.getElementById('lbl-user-desc');
+    
+    if (lvl >= 10) { rankLabel.innerText = "RANK: CYBER ELITE"; rankLabel.style.color = "#06b6d4"; descLabel.innerText = "Trình độ tối cao."; }
+    else if (lvl >= 5) { rankLabel.innerText = "RANK: TECH EXPERT"; rankLabel.style.color = "#a855f7"; descLabel.innerText = "Trình độ trung cấp."; }
+    else if (lvl >= 2) { rankLabel.innerText = "RANK: APPRENTICE"; rankLabel.style.color = "#eab308"; descLabel.innerText = "Trình độ cơ bản."; }
+    else { rankLabel.innerText = "RANK: UNRANKED"; rankLabel.style.color = "#9ca3af"; descLabel.innerText = "Tân binh mới gia nhập."; }
+
+    document.getElementById('user-level').innerText = `LEVEL: ${lvl}`;
+    const xpNeeded = lvl * 100;
+    document.getElementById('user-xp-text').innerText = `${userProgress.xp} / ${xpNeeded} XP`;
+    document.getElementById('user-xp-fill').style.width = `${(userProgress.xp / xpNeeded) * 100}%`;
+    
+    const badgeZone = document.getElementById('streak-badge-zone');
+    badgeZone.innerHTML = userProgress.streak > 0 ? `<span class="badge-streak">🔥 ĐANG DUY TRÌ: ${userProgress.streak} NGÀY</span>` : `<span style="font-size:12px; color:var(--text-muted);">Chưa điểm danh hôm nay</span>`;
+
+    userProgress.achievements.forEach(id => { const element = document.getElementById(`ach-${id}`); if(element) element.classList.add('unlocked'); });
+}
+
+function addXP(amount) {
+    userProgress.xp += amount; let xpNeeded = userProgress.level * 100;
+    while(userProgress.xp >= xpNeeded) { userProgress.xp -= xpNeeded; userProgress.level++; xpNeeded = userProgress.level * 100; alert(`🎉 LÊN LEVEL ${userProgress.level}!`); unlockAchievement(2); }
+    saveUserData();
+}
+
+function unlockAchievement(id) { if(!userProgress.achievements.includes(id)) { userProgress.achievements.push(id); saveUserData(); } }
+
+function executeDailyCheckIn() {
+    const todayStr = new Date().toDateString();
+    if(userProgress.lastCheckIn === todayStr) { alert("Hôm nay bạn đã điểm danh rồi!"); return; }
+    userProgress.streak = (userProgress.lastCheckIn === new Date(Date.now() - 86400000).toDateString()) ? userProgress.streak + 1 : 1;
+    userProgress.lastCheckIn = todayStr; unlockAchievement(1); addXP(30); alert(`🎯 +30 XP!`);
+}
+
+function switchMainTab(target) {
+    document.querySelectorAll('.tab-content-block').forEach(b => b.style.display = 'none');
+    document.querySelectorAll('.game-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`tab-${target}`).style.display = 'block'; event.target.classList.add('active');
+    if(target === 'minigame') initWordMatchGame();
+}
+
+// QUIZ
+let currentQuizIdx = 0;
+function renderQuizQuestion() {
+    if(currentQuizIdx >= quizData.length) currentQuizIdx = 0;
+    const current = quizData[currentQuizIdx];
+    document.getElementById('question-text').innerText = `CÂU HỎI: ${current.q}`;
+    let html = '';
+    current.options.forEach((opt, idx) => { html += `<div class="quiz-option" onclick="checkQuizAnswer(this, ${idx})"><strong>[${String.fromCharCode(65+idx)}]</strong> ${opt}</div>`; });
+    document.getElementById('options-zone').innerHTML = html;
+}
+function checkQuizAnswer(element, chosenIdx) {
+    const correctIdx = quizData[currentQuizIdx].ans; const allOptions = document.getElementById('options-zone').children;
+    for(let opt of allOptions) opt.style.pointerEvents = 'none';
+    if(chosenIdx === correctIdx) { element.classList.add('correct'); AudioEngine.playCorrect(); addXP(15); unlockAchievement(3); }
+    else { element.classList.add('wrong'); allOptions[correctIdx].classList.add('correct'); AudioEngine.playWrong(); }
+    setTimeout(() => { currentQuizIdx++; renderQuizQuestion(); }, 1500);
+}
+
+// FLASHCARDS
+let currentCardIdx = 0;
+function renderFlashcard() {
+    if(activeVocabulary.length === 0) return;
+    const data = activeVocabulary[currentCardIdx];
+    document.getElementById('fc-word').innerText = data.en;
+    document.getElementById('fc-pos').innerText = data.pos;
+    document.getElementById('fc-mean').innerText = data.vi;
+    document.querySelector('.flashcard').classList.remove('flipped');
+}
+function changeFlashcard(direction) {
+    currentCardIdx += direction;
+    if(currentCardIdx >= activeVocabulary.length) currentCardIdx = 0;
+    if(currentCardIdx < 0) currentCardIdx = activeVocabulary.length - 1;
+    renderFlashcard();
+}
+
+// MINI GAMES
+function switchMiniGame(game) {
+    document.getElementById('game-match-zone').style.display = game === 'match' ? 'block' : 'none';
+    document.getElementById('game-hangman-zone').style.display = game === 'hangman' ? 'block' : 'none';
+    document.getElementById('btn-sub-match').classList.toggle('active', game === 'match');
+    document.getElementById('btn-sub-hangman').classList.toggle('active', game === 'hangman');
+    if(game === 'hangman') initHangmanGame();
+}
+
+// GAME MATCH (Tự động bốc ngẫu nhiên 5 từ từ kho từ khủng)
+let selectedLeft = null, selectedRight = null;
+function initWordMatchGame() {
+    const board = document.getElementById('match-board');
+    let pool = [...activeVocabulary].sort(() => Math.random() - 0.5).slice(0, 5);
+    let leftSide = [...pool].sort(() => Math.random() - 0.5);
+    let rightSide = [...pool].sort(() => Math.random() - 0.5);
+    
+    let leftHtml = '<div class="match-column">';
+    leftSide.forEach(item => { leftHtml += `<div class="match-card" data-type="en" data-val="${item.en}" onclick="handleMatchClick(this)">${item.en}</div>`; });
+    leftHtml += '</div>';
+    let rightHtml = '<div class="match-column">';
+    rightSide.forEach(item => { rightHtml += `<div class="match-card" data-type="vi" data-val="${item.vi}" onclick="handleMatchClick(this)">${item.vi}</div>`; });
+    rightHtml += '</div>';
+    board.innerHTML = leftHtml + rightHtml;
+}
+function handleMatchClick(element) {
+    if(element.classList.contains('matched')) return;
+    const type = element.getAttribute('data-type');
+    if(type === 'en') { document.querySelectorAll('[data-type="en"]').forEach(c => c.classList.remove('selected')); selectedLeft = element; }
+    else { document.querySelectorAll('[data-type="vi"]').forEach(c => c.classList.remove('selected')); selectedRight = element; }
+    element.classList.add('selected');
+    if(selectedLeft && selectedRight) {
+        const enVal = selectedLeft.getAttribute('data-val'); const viVal = selectedRight.getAttribute('data-val');
+        if(activeVocabulary.find(v => v.en === enVal && v.vi === viVal)) {
+            selectedLeft.classList.replace('selected', 'matched'); selectedRight.classList.replace('selected', 'matched');
+            AudioEngine.playCorrect(); addXP(10);
+            if(document.querySelectorAll('.match-card.matched').length === 10) { unlockAchievement(4); alert("🎉 Xuất sắc! Phá đảo lượt chơi này."); initWordMatchGame(); }
+        } else { AudioEngine.playWrong(); selectedLeft.classList.remove('selected'); selectedRight.classList.remove('selected'); }
+        selectedLeft = null; selectedRight = null;
+    }
+}
+
+// GAME HANGMAN
+let hmWord = "", hmGuessed = [], hmLives = 6;
+function initHangmanGame() {
+    if(activeVocabulary.length === 0) return;
+    const target = activeVocabulary[Math.floor(Math.random() * activeVocabulary.length)];
+    hmWord = target.en.toLowerCase(); hmGuessed = []; hmLives = 6; updateHangmanDisplay();
+    const kb = document.getElementById('hm-keyboard'); let kbHtml = "";
+    "abcdefghijklmnopqrstuvwxyz".split("").forEach(char => { kbHtml += `<button class="kb-btn" onclick="guessHangman('${char}', this)">${char.toUpperCase()}</button>`; });
+    kb.innerHTML = kbHtml;
+}
+function updateHangmanDisplay() {
+    let display = ""; for(let char of hmWord) { display += hmGuessed.includes(char) ? char + " " : "_ "; }
+    document.getElementById('hm-word-display').innerText = display;
+    document.getElementById('hangman-lives-display').innerText = "Mạng: " + "❤️".repeat(hmLives);
+    if(!display.includes("_")) { AudioEngine.playCorrect(); alert("🎉 Thắng!"); addXP(20); initHangmanGame(); }
+    else if(hmLives <= 0) { AudioEngine.playWrong(); alert(`💥 Từ chuẩn: ${hmWord.toUpperCase()}`); initHangmanGame(); }
+}
+function guessHangman(char, btn) { btn.disabled = true; if(hmWord.includes(char)) { hmGuessed.push(char); } else { hmLives--; } updateHangmanDisplay(); }
+
+window.onload = function() { loadUserData(); renderQuizQuestion(); renderFlashcard(); };
+</script>
+</body>
+</html>
